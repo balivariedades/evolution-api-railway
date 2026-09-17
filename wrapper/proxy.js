@@ -14,11 +14,6 @@ proxy.on('error', (err, req, res) => {
 });
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/' && (req.method === 'GET' || req.method === 'HEAD')) {
-    res.writeHead(302, { Location: '/manager' });
-    res.end();
-    return;
-  }
   proxy.web(req, res);
 });
 
@@ -27,5 +22,5 @@ server.on('upgrade', (req, socket, head) => {
 });
 
 server.listen(PUBLIC_PORT, () => {
-  console.log(`[wrapper] listening on ${PUBLIC_PORT}, proxying to ${TARGET}, redirecting / to /manager`);
+  console.log(`[wrapper] listening on ${PUBLIC_PORT}, proxying to ${TARGET}`);
 });
